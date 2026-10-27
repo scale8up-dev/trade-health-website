@@ -14,9 +14,15 @@ FILES = [
     "_headers", "_redirects",
 ]
 OUTPUT.mkdir(exist_ok=True)
-unexpected = {p.name for p in OUTPUT.iterdir()} - set(FILES)
+# Netlify can restore/write its configuration inside the publish directory.
+# It is known build metadata, not a public asset or an unexpected user file.
+metadata = OUTPUT / "netlify.toml"
+build_metadata = {metadata.name} if metadata.is_file() else set()
+unexpected = {p.name for p in OUTPUT.iterdir()} - set(FILES) - build_metadata
 if unexpected:
     raise SystemExit(f"Unexpected files in dist; inspect before packaging: {unexpected}")
+if metadata.is_file():
+    metadata.unlink()
 for name in FILES:
     shutil.copy2(ROOT / name, OUTPUT / name)
 with zipfile.ZipFile(ROOT / "tradehealth-netlify.zip", "w", zipfile.ZIP_DEFLATED) as archive:

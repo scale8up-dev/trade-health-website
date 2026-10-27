@@ -5,6 +5,7 @@ Verified locally on October 27, 2026 using Python 3.12, Node 22 and headless Chr
 ## Passed
 
 - `python scripts/build.py`: 22 allowlisted public files; deploy ZIP has `index.html` at its root.
+- `python scripts/test_build.py`: clean/repeated builds, Netlify-injected `dist/netlify.toml` excluded from publication, and unknown-file protection. The metadata regression reproduced the exact reported Netlify failure before the fix.
 - `node --check app.js`: JavaScript syntax.
 - Python `tomllib`: Netlify configuration parses.
 - `python scripts/check_site.py` against `dist/`: all 10 pages at 320, 390, 768 and 1440px without horizontal page overflow or JavaScript exceptions.

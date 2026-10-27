@@ -30,6 +30,8 @@ python scripts/build.py
 
 This copies an explicit public-file allowlist into `dist/` and writes `tradehealth-netlify.zip`. It does not publish internal notes, scripts, tests, Git metadata or original images. Upload the regenerated folder after every change.
 
+Netlify may restore `dist/netlify.toml` before the build. The packager removes only that known metadata file and excludes it from publication. Other unexpected files still stop the build for inspection. Run `python scripts/test_build.py` to verify clean/repeated builds, this Netlify-specific case and preservation of unknown files.
+
 ### Images
 
 The supplied hero PNG is preserved. Its WebP version is **120,984 bytes versus 2,079,547 bytes** (94% smaller). The two optimized WebP logos total approximately 9 KB rather than 712 KB. Image dimensions reserve layout space; the footer logo is lazy-loaded and the hero is prioritized. All page assets are local; there are no third-party fonts or trackers.
