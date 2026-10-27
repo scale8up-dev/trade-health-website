@@ -16,7 +16,7 @@ if not args.send:
     parser.error("Pass --send to authorize exactly two real test submissions.")
 
 BASE = args.base_url
-ENDPOINT = "https://formspree.io/f/maeeovpp"
+ENDPOINT = "https://formspree.io/f/xjyywzyg"
 results = []
 test_id = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
 with sync_playwright() as p:
@@ -32,7 +32,7 @@ with sync_playwright() as p:
       const originalFetch = window.fetch;
       window.fetch = async (...args) => {
         const response = await originalFetch(...args);
-        if (String(args[0]) === 'https://formspree.io/f/maeeovpp') {
+        if (String(args[0]) === 'https://formspree.io/f/xjyywzyg') {
           const text = await response.clone().text();
           let payload;
           try { payload = JSON.parse(text); } catch { payload = {non_json_response: true}; }

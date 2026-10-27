@@ -9,7 +9,7 @@ SITE = ROOT / "dist"
 RESULTS = ROOT / "test-results"
 RESULTS.mkdir(exist_ok=True)
 BASE = "http://localhost:8000"
-ENDPOINT = "https://formspree.io/f/maeeovpp"
+ENDPOINT = "https://formspree.io/f/xjyywzyg"
 pages = sorted(SITE.glob("*.html"))
 
 for file in pages:

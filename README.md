@@ -5,7 +5,7 @@ Static, client-facing marketing site based on the supplied six-page design. No a
 ## Deploy by dragging a folder
 
 1. Drag **`dist/`** into [Netlify Drop](https://app.netlify.com/drop), or upload `tradehealth-netlify.zip`. The folder/ZIP contains `index.html` at its top level. **Do not upload the whole project**: it includes internal handoff notes and original image files.
-2. Both existing forms submit to **Formspree**, not Netlify Forms, at `https://formspree.io/f/maeeovpp`. No Netlify form detection or notification setup is needed.
+2. Both existing forms submit to **Nathan’s Formspree form**, not Netlify Forms, at `https://formspree.io/f/xjyywzyg`. No Netlify form detection or notification setup is needed.
 3. In the Formspree dashboard, confirm the form is active, verify the notification recipient, review spam protection/allowed domains and check submission limits. Both forms share the endpoint; their `form-name` and `_subject` fields distinguish employer and partner inquiries. No secret key is embedded in the website.
 4. Submit one test inquiry through each form on the deployed URL. Verify the entries in Formspree and notification delivery to the configured recipient. Formspree acceptance does not prove email arrived in the recipient’s inbox.
 5. Add `www.tradehealthnetwork.com` under **Domain management**, set it as the primary domain, and add `tradehealthnetwork.com` as an alias. At GoDaddy, follow the DNS targets shown by **this Netlify site**. Preserve existing MX, SPF, DKIM and DMARC records. Do not reuse the former ChatGPT hosting targets. Wait for DNS verification and HTTPS certificates for both domains.
