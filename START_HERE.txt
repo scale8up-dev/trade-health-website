@@ -1,0 +1,116 @@
+TRADEHEALTH WEBSITE — DEVELOPER HANDOFF
+Prepared October 27, 2026
+
+START HERE
+This ZIP contains the complete current six-page website prototype, including
+HTML, CSS, JavaScript, logos and the generated hero photograph. It is portable
+static source; it does not depend on ChatGPT or Sites to run.
+
+CONTENTS
+website/index.html             Home
+website/how-it-works.html      Enrollment and private clinical care workflow
+website/pricing.html           Pricing and working browser-side calculator
+website/faq.html               Expandable employer and employee FAQs
+website/partners.html          Partner inquiry prototype
+website/get-started.html       Employer inquiry prototype
+website/style.css              Responsive styles and investor-deck visual theme
+website/app.js                 Menu, calculator and prototype form interactions
+website/logo-horizontal.jpg    Supplied horizontal brand asset
+website/logo-stacked.jpg       Supplied stacked brand asset
+website/hero-worker.png        AI-generated marketing photograph, not a customer
+
+PREVIEW AND IMPLEMENTATION
+Open website/index.html in a browser for a quick preview, or serve the website
+folder with a static development server. For example, from that folder:
+  python -m http.server 8000
+Then open http://localhost:8000 .
+
+Deploy the contents of website/ to a static host's public document root, or port
+the design and content into the company's chosen framework or CMS. Preserve
+relative asset paths and navigation, or update them consistently when porting.
+There are no package installations or build steps required for this export.
+
+DESIGN DIRECTION
+Match the developing investor deck: deep navy, electric blue gradients, cyan
+accents, bold headings, hexagon shapes, translucent white cards and trades imagery.
+Messaging includes 'Healthcare built for the trades' and 'Work healthier.
+Live brighter.' Preserve the distinction between employer membership
+administration and the worker's private clinical care and records.
+
+FOUNDER RATE — REQUIRED BUSINESS RULE
+Standard employee membership: $59 per employee per month.
+Founder Rate: $49 per employee per month for the first 100 enrolled employees
+IN EACH STATE. The threshold counts employees, not employers. Once a state
+reaches 100 enrolled employees, the special closes in that state and standard
+pricing applies to new enrollments. The current mockup displays the offer but
+DOES NOT track enrollment or automatically withdraw it.
+
+Before production, obtain the owner's decision on rate duration: whether an
+employee who qualifies keeps $49 after the threshold, for how long, and on what
+renewal terms. The current copy deliberately makes no rate-lock promise.
+Also confirm handling of crews that cross the remaining state allocation,
+new hires, cancellations, re-enrollment and employee state attribution.
+
+Implement an authoritative per-state eligibility allocation in the enrollment
+backend, with atomic updates so simultaneous enrollments cannot exceed the cap.
+Do not use browser storage, lead-form submissions or a guessed counter as the
+enrollment source of truth. Use the same availability source for enrollment,
+offer messaging and calculator eligibility. Define whether closed state offers
+remain closed after cancellations. Hide/replace the applicable offer when full.
+No live remaining-spots count is currently shown.
+
+PRICING CALCULATOR
+Offers a Founder Rate versus standard rate comparison.
+Spouse add-on: $20 per employee/month; family add-on: $35.
+Current illustration totals:
+  Employee: founder $49 / standard $59
+  Employee + Spouse: founder $69 / standard $79
+  Employee + Family: founder $84 / standard $94
+Add-ons are unchanged from the earlier supplied website copy; obtain final
+confirmation of eligibility and terms. Annual estimates assume 12 months at
+the selected rate and are not a commitment to a 12-month Founder Rate lock.
+The calculator assumes the same tier for the whole crew and is not an
+allocation or enrollment engine.
+
+PROTOTYPE LIMITATIONS — COMPLETE BEFORE CUSTOMER LAUNCH
+- Employer and partner forms are demonstrations only. No information is sent,
+  stored or booked. Connect to the intended CRM/backend and scheduling tool.
+- Replace the demo submission messages and prototype notices only when the
+  connected behaviors have been implemented and verified.
+- No employer portal, billing, patient account, clinical platform or actual
+  enrollment is implemented in this marketing site. Copy describes the intended
+  service; confirm operational readiness before public launch.
+- Add an approved Privacy Policy and Terms of Use, link them at forms/footer,
+  and implement appropriate consent and privacy practices.
+- Confirm clinical scope, visit hours, prescribing limitations, medication costs,
+  provider availability/licensure and membership/billing/cancellation terms.
+- Confirm Idaho and Utah launch availability and required not-insurance and
+  other legal disclosures. Existing footer language is draft marketing copy.
+- Add approved contact details and founder bios/photos if desired.
+- Investor financials, fundraising material, internal validation targets and
+  unverified uninsured percentages were intentionally excluded.
+
+DOMAIN AND HOSTING
+Intended primary hostname: www.tradehealthnetwork.com
+Registrar: GoDaddy. The exported site can be hosted independently.
+The ChatGPT-hosted review copy is private:
+https://tradehealth-website-mockup.grittygull1.chatgpt.site
+
+A custom-domain connection was prepared for the ChatGPT-hosted copy, but DNS
+verification was pending at handoff. If deploying to a different host, use THAT
+HOST'S current DNS targets and certificate instructions, not the previously
+supplied ChatGPT DNS targets. Configure the apex tradehealthnetwork.com to
+redirect to the chosen canonical hostname, with HTTPS for both addresses.
+Preserve existing mail/MX and email authentication records. Coordinate any DNS
+cutover and public launch with the owner. This export does not change DNS,
+sharing, hosting or the existing review site.
+
+VERIFICATION ALREADY COMPLETED
+All six pages and referenced local links/assets were checked. JavaScript syntax
+and calculator totals for founder, standard, spouse and family options passed.
+The preceding deck-themed home page and workflow were inspected in a desktop
+browser. The final Founder Rate update had source/link/calculation checks;
+complete desktop/mobile, accessibility and connected-service QA after porting.
+
+No credentials, repository tokens, private hosting configuration, patient data
+or raw investor deck slides are included in this package.

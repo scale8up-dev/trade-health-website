@@ -1,0 +1,353 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Get Started | TradeHealth</title>
+    <link
+      rel="canonical"
+      href="https://www.tradehealthnetwork.com/get-started.html"
+    />
+    <meta
+      name="description"
+      content="Tell TradeHealth about your business and request a 15-minute fit call to discuss telehealth membership for your crew."
+    />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="data:image/svg+xml,%3Csvg%20xmlns=%27http://www.w3.org/2000/svg%27%20viewBox=%270%200%2032%2032%27%3E%3Crect%20width=%2732%27%20height=%2732%27%20rx=%276%27%20fill=%27%23102f60%27/%3E%3Cpath%20d=%27M6%2016h7l3-8%204%2016%203-8h3%27%20fill=%27none%27%20stroke=%27%234fe3f0%27%20stroke-width=%273%27/%3E%3C/svg%3E"
+    />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="launch.css" />
+    <script defer src="app.js"></script>
+  </head>
+  <body class="deck-theme">
+    <a class="skip-link" href="#main-content">Skip to content</a>
+    <div class="notice">
+      Founding employer inquiries · Idaho &amp; Utah · Availability confirmed
+      before enrollment
+    </div>
+    <a class="founder-ribbon" href="pricing.html#founder-rate"
+      ><strong>FOUNDER RATE · $49 / EMPLOYEE / MONTH</strong
+      ><span>
+        First 100 enrolled employees per state · Then $59 standard pricing</span
+      ></a
+    >
+    <header>
+      <div class="wrap header-inner">
+        <a class="brand" href="index.html" aria-label="TradeHealth home"
+          ><img
+            src="logo-horizontal.webp"
+            alt="TradeHealth"
+            width="520"
+            height="142"
+        /></a>
+        <nav id="main-nav" aria-label="Main navigation">
+          <a href="how-it-works.html">How It Works</a
+          ><a href="pricing.html">Pricing</a><a href="faq.html">FAQ</a
+          ><a href="partners.html">Partners</a>
+        </nav>
+        <a class="btn" href="get-started.html">See If It Fits</a
+        ><button
+          class="menu"
+          aria-label="Toggle menu"
+          aria-controls="main-nav"
+          aria-expanded="false"
+        >
+          ☰
+        </button>
+      </div>
+    </header>
+    <main id="main-content" tabindex="-1">
+      <div class="page-head">
+        <div class="wrap">
+          <p class="eyebrow accent-rule">Get started</p>
+          <h1>Let’s see if TradeHealth<br />fits your crew.</h1>
+          <p class="lead">
+            Tell us a little about your business. A 15-minute conversation can
+            help you decide whether the membership makes sense.
+          </p>
+          <div class="hex-field" aria-hidden="true"><i></i><i></i><i></i></div>
+        </div>
+      </div>
+      <section class="light">
+        <div class="wrap">
+          <div class="split">
+            <div>
+              <p class="eyebrow accent-rule">
+                A quick conversation. A clear answer.
+              </p>
+              <h2>Your crew.<br />Your budget.<br />Your next step.</h2>
+              <p class="muted">
+                We’ll ask about your business, explain how TradeHealth works and
+                answer your questions. No pressure. If it’s not a fit, we’ll say
+                so.
+              </p>
+              <div class="privacy" style="margin-top: 35px">
+                <h3>Founding employer launch</h3>
+                <p class="muted">
+                  90-day paid launch<br />Reviews at 30, 60 and 90 days<br />Group-level
+                  activation and usage
+                </p>
+              </div>
+              <p class="small" style="margin-top: 30px">
+                Serving employers in Idaho and Utah.
+              </p>
+            </div>
+            <div class="form-panel">
+              <div class="founder-form-note">
+                <strong>Ask about the $49 Founder Rate.</strong>
+                <p>
+                  Limited to the first 100 enrolled employees per state.
+                  Availability and membership terms are confirmed before
+                  enrollment.
+                </p>
+              </div>
+              <p class="small">
+                Request a conversation with our team. Please do not include
+                medical or patient information.
+              </p>
+              <form
+                name="employer-inquiry"
+                method="POST"
+                action="/thank-you.html"
+                data-netlify="true"
+                netlify-honeypot="bot-field"
+                data-inquiry
+              >
+                <input
+                  type="hidden"
+                  name="form-name"
+                  value="employer-inquiry"
+                />
+                <input
+                  type="hidden"
+                  name="interest"
+                  id="interest"
+                  value="general"
+                />
+                <p class="hidden" aria-hidden="true">
+                  <label
+                    >Leave this blank<input
+                      name="bot-field"
+                      tabindex="-1"
+                      autocomplete="off"
+                  /></label>
+                </p>
+                <div class="form-grid">
+                  <div>
+                    <label for="yourname">Your name *</label
+                    ><input
+                      id="yourname"
+                      name="yourname"
+                      type="text"
+                      required
+                      autocomplete="name"
+                      maxlength="120"
+                    />
+                  </div>
+                  <div>
+                    <label for="businessname">Business name *</label
+                    ><input
+                      id="businessname"
+                      name="businessname"
+                      type="text"
+                      required
+                      autocomplete="organization"
+                      maxlength="160"
+                    />
+                  </div>
+                  <div>
+                    <label for="email">Email *</label
+                    ><input
+                      id="email"
+                      name="email"
+                      type="email"
+                      required
+                      autocomplete="email"
+                    />
+                  </div>
+                  <div>
+                    <label for="phone">Phone *</label
+                    ><input
+                      id="phone"
+                      name="phone"
+                      type="tel"
+                      required
+                      autocomplete="tel"
+                      maxlength="40"
+                    />
+                  </div>
+                  <div>
+                    <label for="state">State *</label
+                    ><select id="state" name="state" required>
+                      <option value="">Select an option</option>
+                      <option>Idaho</option>
+                      <option>Utah</option>
+                      <option>Other</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label for="numberofemployees">Number of employees *</label
+                    ><select
+                      id="numberofemployees"
+                      name="numberofemployees"
+                      required
+                    >
+                      <option value="">Select an option</option>
+                      <option>1–4</option>
+                      <option>5–9</option>
+                      <option>10–24</option>
+                      <option>25–49</option>
+                      <option>50+</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label for="typeofbusiness">Type of business *</label
+                    ><select id="typeofbusiness" name="typeofbusiness" required>
+                      <option value="">Select an option</option>
+                      <option>HVAC</option>
+                      <option>Plumbing</option>
+                      <option>Electrical</option>
+                      <option>Roofing</option>
+                      <option>Concrete</option>
+                      <option>Excavation</option>
+                      <option>Remodeling</option>
+                      <option>Landscaping / Home services</option>
+                      <option>Other</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label for="doyouofferahealthbenefittoday"
+                      >Do you offer a health benefit today? (optional)</label
+                    ><select
+                      id="doyouofferahealthbenefittoday"
+                      name="doyouofferahealthbenefittoday"
+                    >
+                      <option value="">Select an option</option>
+                      <option>No</option>
+                      <option>Yes — group health plan</option>
+                      <option>Yes — something else</option>
+                      <option>Not sure</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label for="howdidyouhearaboutus"
+                      >How did you hear about us? (optional)</label
+                    ><select
+                      id="howdidyouhearaboutus"
+                      name="howdidyouhearaboutus"
+                    >
+                      <option value="">Select an option</option>
+                      <option>Referral from an advisor or partner</option>
+                      <option>Blue Collar Connect</option>
+                      <option>Association or event</option>
+                      <option>Search</option>
+                      <option>Other</option>
+                    </select>
+                  </div>
+                  <div>
+                    <label for="referralcode">Referral code (optional)</label
+                    ><input
+                      id="referralcode"
+                      name="referralcode"
+                      type="text"
+                      autocomplete="off"
+                      maxlength="100"
+                    />
+                  </div>
+                </div>
+                <label for="message" style="margin-top: 20px"
+                  >Anything else we should know? (optional)</label
+                >
+                <textarea
+                  id="message"
+                  name="message"
+                  rows="4"
+                  maxlength="2000"
+                  aria-describedby="message-help"
+                ></textarea>
+                <p id="message-help" class="small">
+                  Business questions only. Do not include medical or patient
+                  information.
+                </p>
+                <p id="state-note" class="form-note hidden">
+                  Our founding launch focuses on Idaho and Utah. You can still
+                  send an inquiry to ask about future availability in your
+                  state.
+                </p>
+                <label class="consent"
+                  ><input
+                    type="checkbox"
+                    name="contact-consent"
+                    value="yes"
+                    required
+                  /><span
+                    >I agree to be contacted about this inquiry and have read
+                    the <a href="privacy.html">Privacy Policy</a> and
+                    <a href="terms.html">Website Terms</a>.</span
+                  ></label
+                >
+                <button type="submit" class="btn" style="margin-top: 24px">
+                  Request My Fit Call
+                </button>
+                <p class="small" style="margin-top: 18px">
+                  This requests a callback; it does not book an appointment or
+                  enroll your crew.
+                </p>
+              </form>
+              <div
+                class="form-status hidden"
+                role="status"
+                aria-live="polite"
+                tabindex="-1"
+              ></div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer>
+      <div class="wrap footer-main">
+        <div>
+          <a href="index.html"
+            ><img
+              class="footer-logo"
+              src="logo-stacked.webp"
+              alt="TradeHealth"
+              width="410"
+              height="255"
+              loading="lazy"
+          /></a>
+          <p class="small">Healthcare built for the trades.</p>
+        </div>
+        <div class="footer-links">
+          <a href="how-it-works.html">How It Works</a
+          ><a href="pricing.html">Pricing</a><a href="faq.html">FAQ</a
+          ><a href="partners.html">Partners</a
+          ><a href="get-started.html">Get Started</a>
+        </div>
+        <div>
+          <h3>Work healthier. Live brighter.</h3>
+          <p class="small">Serving employers in Idaho and Utah.</p>
+          <p class="small">
+            An employer-sponsored telehealth membership for trade crews.
+          </p>
+        </div>
+      </div>
+      <div class="wrap footer-bottom">
+        <p>
+          TradeHealth is not health insurance and does not replace comprehensive
+          health coverage or workers’ compensation. It does not provide
+          emergency care; in an emergency, call 911. Medical services are
+          provided by providers licensed in the patient’s state.
+        </p>
+        <p>© 2026 TradeHealth, LLC. All rights reserved.</p>
+        <p>
+          <a href="privacy.html">Privacy Policy</a> ·
+          <a href="terms.html">Website Terms</a>
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>

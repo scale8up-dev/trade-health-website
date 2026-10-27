@@ -1,0 +1,4 @@
+# Keep the canonical domain on www; Netlify handles HTTPS certificates.
+https://tradehealthnetwork.com/* https://www.tradehealthnetwork.com/:splat 301!
+/index.html / 301
+# No SPA catch-all: Netlify serves 404.html with a real 404 for missing pages.

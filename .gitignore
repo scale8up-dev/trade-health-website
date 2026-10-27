@@ -1,0 +1,10 @@
+dist/
+tradehealth-netlify.zip
+test-results/
+__pycache__/
+node_modules/
+.netlify/
+.idea/
+.env
+.env.*
+!.env.example
