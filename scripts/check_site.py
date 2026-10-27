@@ -9,6 +9,7 @@ SITE = ROOT / "dist"
 RESULTS = ROOT / "test-results"
 RESULTS.mkdir(exist_ok=True)
 BASE = "http://localhost:8000"
+ENDPOINT = "https://formspree.io/f/maeeovpp"
 pages = sorted(SITE.glob("*.html"))
 
 for file in pages:
@@ -28,16 +29,31 @@ for file in pages:
             target = BeautifulSoup(path.read_text(encoding="utf-8"), "html.parser")
             assert target.find(id=url.fragment), (file.name, url.fragment)
     for form in soup.select("form"):
-        assert form.get("data-netlify") == "true"
+        assert not form.has_attr("data-netlify")
+        assert not form.has_attr("netlify-honeypot")
+        assert form.get("action") == ENDPOINT
+        assert form.get("data-success-url") == "/thank-you.html"
         assert form.get("method").upper() == "POST"
         assert form.select_one('input[name="form-name"]')["value"] == form["name"]
-        assert form.select_one('input[name="bot-field"]')
+        assert form.select_one('input[name="_gotcha"]')
+        assert form.select_one('input[name="_subject"]')
         assert form.select_one('input[name="contact-consent"][required]')
-print(f"PASS: {len(pages)} pages: internal links, anchors, assets, unique IDs and Netlify form markup")
+headers = (SITE / "_headers").read_text(encoding="utf-8")
+csp = next(line.strip().split(": ", 1)[1] for line in headers.splitlines() if "Content-Security-Policy:" in line)
+assert "connect-src 'self' https://formspree.io;" in csp
+assert "form-action 'self' https://formspree.io;" in csp
+print(f"PASS: {len(pages)} pages: internal links, assets, IDs, Formspree markup and CSP")
 
 with sync_playwright() as p:
     browser = p.chromium.launch(headless=True)
-    page = browser.new_page()
+    context = browser.new_context()
+    # Never send real inquiries during the regression suite.
+    context.route("https://formspree.io/**", lambda route: route.abort())
+    def security_headers(route):
+        response = route.fetch()
+        route.fulfill(response=response, headers={**response.headers, "Content-Security-Policy": csp})
+    context.route(f"{BASE}/**", security_headers)
+    page = context.new_page()
     errors = []
     page.on("pageerror", lambda error: errors.append(str(error)))
     for width in (320, 390, 768, 1440):
@@ -125,38 +141,48 @@ with sync_playwright() as p:
         assert page.locator("form").evaluate("el => el.checkValidity()")
         def fail(route):
             if route.request.method == "POST":
-                route.fulfill(status=503, body="Unavailable")
+                route.fulfill(status=503, body="Unavailable", headers={"Access-Control-Allow-Origin": "*"})
             else:
                 route.continue_()
-        page.route(f"{BASE}/", fail)
+        page.route(ENDPOINT, fail)
         page.locator('[type="submit"]').click()
         expect(page.locator(".form-status")).to_contain_text("couldn’t confirm")
         expect(page.locator("#yourname")).to_have_value("Test Person")
         expect(page.locator('[type="submit"]')).to_be_enabled()
-        page.unroute(f"{BASE}/", fail)
+        page.unroute(ENDPOINT, fail)
+        def validation_error(route):
+            route.fulfill(status=422, json={"errors": [{"message": "Please use a valid email address."}]}, headers={"Access-Control-Allow-Origin": "*"})
+        page.route(ENDPOINT, validation_error)
+        page.locator('[type="submit"]').click()
+        expect(page.locator(".form-status")).to_contain_text("Please use a valid email address.")
+        expect(page.locator("#yourname")).to_have_value("Test Person")
+        page.unroute(ENDPOINT, validation_error)
         captured = []
         def succeed(route):
             if route.request.method == "POST":
                 captured.append(parse_qs(route.request.post_data))
-                route.fulfill(status=200, body="OK")
+                assert route.request.headers["accept"] == "application/json"
+                assert route.request.headers["content-type"] == "application/x-www-form-urlencoded"
+                route.fulfill(status=200, json={"ok": True}, headers={"Access-Control-Allow-Origin": "*"})
             else:
                 route.continue_()
-        page.route(f"{BASE}/", succeed)
+        page.route(ENDPOINT, succeed)
         page.locator('[type="submit"]').click()
         page.wait_for_url("**/thank-you.html")
         assert captured[0]["form-name"] == [name]
         assert captured[0]["contact-consent"] == ["yes"]
-        page.unroute(f"{BASE}/", succeed)
-    print("PASS: both inquiry forms: validation, mocked failure/retry, encoded payload and success navigation")
+        assert "_subject" in captured[0]
+        page.unroute(ENDPOINT, succeed)
+    print("PASS: both forms under production CSP: validation, server errors/retry, Formspree payload and success navigation")
 
     context = browser.new_context(java_script_enabled=False, viewport={"width": 390, "height": 850})
     no_js = context.new_page()
     no_js.goto(BASE)
     expect(no_js.locator("#main-nav")).to_be_visible()
     no_js.goto(f"{BASE}/get-started.html")
-    expect(no_js.locator("form")).to_have_attribute("action", "/thank-you.html")
+    expect(no_js.locator("form")).to_have_attribute("action", ENDPOINT)
     context.close()
     browser.close()
     print("PASS: no-JavaScript navigation and native form fallback")
 
-print("All local checks passed. Live Netlify capture/email/DNS still need deployment verification.")
+print("All local checks passed. Real Formspree acceptance and inbox delivery are separate live checks.")

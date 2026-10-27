@@ -61,18 +61,32 @@ for (const form of document.querySelectorAll("form[data-inquiry]"))
     button.disabled = true;
     button.textContent = "Sending…";
     status.classList.add("hidden");
+    let submissionError = "";
     try {
-      const response = await fetch("/", {
+      const response = await fetch(form.action, {
         method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
         body: new URLSearchParams(new FormData(form)).toString(),
         signal: controller.signal,
       });
-      if (!response.ok) throw new Error("Submission failed");
-      window.location.assign(form.action);
+      const result = await response.json();
+      if (!response.ok || result.ok !== true) {
+        submissionError = Array.isArray(result.errors)
+          ? result.errors
+              .map((error) => error.message)
+              .filter((message) => typeof message === "string")
+              .join(" ")
+          : "";
+        throw new Error("Submission failed");
+      }
+      window.location.assign(form.dataset.successUrl);
     } catch {
-      status.textContent =
-        "We couldn’t confirm receipt of your inquiry. Please check your connection and try again. Your entries are still here. If you retry after a timeout, we may receive a duplicate.";
+      status.textContent = submissionError
+        ? `We couldn’t send your inquiry. ${submissionError} Your entries are still here.`
+        : "We couldn’t confirm receipt of your inquiry. Please check your connection and try again. Your entries are still here. If you retry after a timeout, we may receive a duplicate.";
       status.classList.remove("hidden");
       status.focus();
     } finally {

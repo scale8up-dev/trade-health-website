@@ -145,16 +145,20 @@
               <form
                 name="partner-inquiry"
                 method="POST"
-                action="/thank-you.html"
-                data-netlify="true"
-                netlify-honeypot="bot-field"
+                action="https://formspree.io/f/maeeovpp"
+                data-success-url="/thank-you.html"
                 data-inquiry
               >
                 <input type="hidden" name="form-name" value="partner-inquiry" />
+                <input
+                  type="hidden"
+                  name="_subject"
+                  value="TradeHealth — Founding partner inquiry"
+                />
                 <p class="hidden" aria-hidden="true">
                   <label
                     >Leave this blank<input
-                      name="bot-field"
+                      name="_gotcha"
                       tabindex="-1"
                       autocomplete="off"
                   /></label>
