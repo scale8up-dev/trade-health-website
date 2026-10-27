@@ -69,6 +69,8 @@ python scripts/test_formspree_live.py --send
 
 It uses fictional contact information, sends no automatic retries, records Formspree responses under `test-results/`, and verifies navigation to the thank-you page. The owner must still confirm actual notification receipt in their inbox. Do not run repeatedly or use it as a load test.
 
+If production has not deployed yet, `--base-url http://localhost:8000` tests the updated local build instead. This still sends real inquiries to Formspree, but it does **not** verify production deployment. Start the local server first and confirm your Formspree allowed-domain settings permit localhost.
+
 ## Source notes
 
 `START_HERE.txt` is the original client handoff, retained unchanged for reference. Its prototype limitations describe the original export; this README describes the current implementation and remaining owner/hosting tasks. Neither document is deployed.

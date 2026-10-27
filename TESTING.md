@@ -30,3 +30,12 @@ The first managed-server test run timed out during repeated page loads. Running 
 - Live security-header behavior, real missing-path 404 status and social-sharing crawler fetches require a deployed URL.
 
 Screenshots and temporary server logs are excluded from Git and the deploy artifact.
+
+## Formspree integration verification
+
+- The existing visible fields and submit-button labels in both forms were compared with the previous commit and are unchanged.
+- The updated regression suite passes with Formspree mocked and the production Content Security Policy applied to page responses. It cannot send real submissions.
+- Two clearly labeled, fictional integration-test inquiries were submitted through the **updated local build** to `https://formspree.io/f/maeeovpp`. Formspree returned HTTP 200 and `{"next":"/thanks","ok":true}` for both employer and partner forms; both navigated to the local thank-you page.
+- An initial employer test reached the success navigation before the test runner could read its response body. The runner was fixed to capture a cloned response before navigation; the first attempt may have generated an additional test notification.
+- These tests confirm Formspree acceptance, **not delivery to the owner's inbox**. The owner must check the configured recipient and Formspree dashboard/spam folder.
+- After the first push to `main`, the custom domain and Netlify subdomain still served the previous Netlify Forms implementation during a bounded deployment check. GitHub reported no deployment check/status for that commit. Confirm Netlify's connected repository/production branch and trigger a deployment if needed; the prepared `dist/` folder remains an alternative for manual deployment.
